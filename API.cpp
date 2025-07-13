@@ -218,5 +218,51 @@ static int queryOneItem(const char* s) {
     sqlite3_close(db);
     return 0;
 }
-static int showData(const char* s) {}
+    static int showData(const char* s) {
+        sqlite3* db;
+        sqlite3_stmt* stmt;
+        int rc = sqlite3_open(s, &db);
+        if (rc) {
+            std::cerr << "Can't open database: " << sqlite3_errmsg(db) << std::endl;
+            return rc;
+        }
+
+        const char* sql = "SELECT ID, NAME, AGE, ADDRESS, SALARY FROM COMPANY;";
+
+        rc = sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr);
+        if (rc != SQLITE_OK) {
+            std::cerr << "Prepare error: " << sqlite3_errmsg(db) << std::endl;
+            sqlite3_close(db);
+            return 1;
+        }
+
+        std::cout << "\nID | NAME | AGE | ADDRESS | SALARY" << std::endl;
+        std::cout << "------------------------------------------" << std::endl;
+
+        while ((rc = sqlite3_step(stmt)) == SQLITE_ROW) {
+            int id = sqlite3_column_int(stmt, 0);
+            const unsigned char* name = sqlite3_column_text(stmt, 1);
+            int age = sqlite3_column_int(stmt, 2);
+            const unsigned char* address = sqlite3_column_text(stmt, 3);
+            double salary = sqlite3_column_double(stmt, 4);
+
+            std::cout << id << " | "
+                << (name ? reinterpret_cast<const char*>(name) : "NULL") << " | "
+                << age << " | "
+                << (address ? reinterpret_cast<const char*>(address) : "NULL") << " | "
+                << salary << std::endl;
+        }
+
+        if (rc != SQLITE_DONE) {
+            std::cerr << "Step error: " << sqlite3_errmsg(db) << std::endl;
+            sqlite3_finalize(stmt);
+            sqlite3_close(db);
+            return 1;
+        }
+
+        sqlite3_finalize(stmt);
+        sqlite3_close(db);
+        return 0;
+    }
+
 
