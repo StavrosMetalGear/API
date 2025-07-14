@@ -13,6 +13,12 @@ static int queryOneItem(const char* s);
 static int showData(const char* s);
 
 int main() {
+    string dir = "C:\\Users\\stavr\\source\\repos\\API\\database.db";
+    //createDataBase(dir.c_str());
+    //createTable(dir.c_str());
+	//insertData(dir.c_str());
+	//showData(dir.c_str());
+	queryOneItem(dir.c_str());
 	return 0;
 }
 static int createDataBase(const char* s) {
