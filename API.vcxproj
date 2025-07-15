@@ -124,10 +124,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="API.cpp" />
+    <ClCompile Include="CompanyDb.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="D:\Λήψεις\sqlite-amalgamation-3500200\sqlite-amalgamation-3500200\sqlite3.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CompanyDb.h" />
     <ClInclude Include="D:\Λήψεις\sqlite-amalgamation-3500200\sqlite-amalgamation-3500200\sqlite3.h" />
   </ItemGroup>
   <ItemGroup>
