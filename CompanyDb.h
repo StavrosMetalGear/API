@@ -22,5 +22,8 @@ namespace CompanyDB {
     std::vector<Employee> showData(const std::string& filename);
     bool deleteEmployee(const std::string& filename, int id);
     std::vector<Employee> findEmployeesByName(const std::string& filename, const std::string& name);
+    bool exportToJson(const std::string& dbfile, const std::string& jsonFile);
+    bool importFromJson(const std::string& dbfile, const std::string& jsonFile);
+
 }
 #pragma once

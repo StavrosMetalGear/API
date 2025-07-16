@@ -1,6 +1,8 @@
 ﻿#include "CompanyDB.h"
 #include <sqlite3.h>
 #include <iostream>
+#include "json.hpp"
+using json = nlohmann::json;
 
 namespace CompanyDB {
 
@@ -192,5 +194,58 @@ namespace CompanyDB {
         sqlite3_close(db);
         return employees;
     }
+    bool exportToJson(const std::string& dbfile, const std::string& jsonFile) {
+        auto employees = showData(dbfile);
+
+        json jArray = json::array();
+
+        for (const auto& e : employees) {
+            json j;
+            j["id"] = e.id;
+            j["name"] = e.name;
+            j["age"] = e.age;
+            j["address"] = e.address;
+            j["salary"] = e.salary;
+            jArray.push_back(j);
+        }
+
+        std::ofstream out(jsonFile);
+        if (!out.is_open()) {
+            std::cerr << "Cannot open file for writing: " << jsonFile << std::endl;
+            return false;
+        }
+
+        out << jArray.dump(4); // Pretty-print with indent=4
+        out.close();
+
+        std::cout << "Exported " << employees.size() << " employees to " << jsonFile << std::endl;
+        return true;
+    }
+    bool importFromJson(const std::string& dbfile, const std::string& jsonFile) {
+        std::ifstream in(jsonFile);
+        if (!in.is_open()) {
+            std::cerr << "Cannot open file for reading: " << jsonFile << std::endl;
+            return false;
+        }
+
+        json jArray;
+        in >> jArray;
+
+        for (const auto& j : jArray) {
+            Employee e;
+            e.name = j.at("name").get<std::string>();
+            e.age = j.at("age").get<int>();
+            e.address = j.at("address").get<std::string>();
+            e.salary = j.at("salary").get<double>();
+
+            if (!insertEmployee(dbfile, e)) {
+                std::cerr << "Failed to insert employee: " << e.name << std::endl;
+            }
+        }
+
+        std::cout << "Imported " << jArray.size() << " employees from " << jsonFile << std::endl;
+        return true;
+    }
+
 
 } // namespace CompanyDB

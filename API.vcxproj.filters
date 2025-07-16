@@ -32,6 +32,9 @@
     <ClInclude Include="D:\Λήψεις\sqlite-amalgamation-3500200\sqlite-amalgamation-3500200\sqlite3.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="D:\Λήψεις\json.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
