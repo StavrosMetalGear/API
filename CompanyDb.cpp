@@ -1,6 +1,9 @@
 ﻿#include "CompanyDB.h"
 #include <sqlite3.h>
 #include <iostream>
+#include <fstream>   
+#include <string>    
+
 #include "json.hpp"
 using json = nlohmann::json;
 
