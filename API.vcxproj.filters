@@ -35,7 +35,7 @@
     <ClInclude Include="D:\Λήψεις\json.hpp">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="D:\Λήψεις\crow_all.h">
+    <ClInclude Include="crow_all.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

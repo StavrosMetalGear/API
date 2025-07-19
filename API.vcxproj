@@ -130,7 +130,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CompanyDb.h" />
-    <ClInclude Include="D:\Λήψεις\crow_all.h" />
+    <ClInclude Include="crow_all.h" />
     <ClInclude Include="D:\Λήψεις\json.hpp" />
     <ClInclude Include="D:\Λήψεις\sqlite-amalgamation-3500200\sqlite-amalgamation-3500200\sqlite3.h" />
   </ItemGroup>

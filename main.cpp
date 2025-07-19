@@ -1,5 +1,6 @@
 #include "CompanyDB.h"
 #include <iostream>
+#include "crow_all.h"
 
 int main() {
     const std::string dbfile = "company.db";
