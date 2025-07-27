@@ -1,0 +1,5 @@
+# ninja log v6
+30	894	7753426588884883	CMakeFiles/CompanyAPI.dir/sqlite3.c.obj	1f10725a0b83406e
+20	1930	7753426588784851	CMakeFiles/CompanyAPI.dir/CompanyDb.cpp.obj	e7bfcceb2fd1fc38
+8	6047	7753426588654864	CMakeFiles/CompanyAPI.dir/main.cpp.obj	e794960f41f2493b
+6078	7620	7753426649363988	CompanyAPI.exe	2c80067b1003db7c

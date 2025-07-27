@@ -1,0 +1,3 @@
+C:/Users/stavr/source/repos/API/build/CMakeFiles/CompanyAPI.dir
+C:/Users/stavr/source/repos/API/build/CMakeFiles/edit_cache.dir
+C:/Users/stavr/source/repos/API/build/CMakeFiles/rebuild_cache.dir
