@@ -1,0 +1,53 @@
+#define CROW_MAIN
+#include "crow_all.h"
+#include "json.hpp"
+#include "sqlite3.h"
+
+using json = nlohmann::json;
+
+crow::response getEmployeesFromDB() {
+    sqlite3* db;
+    sqlite3_stmt* stmt;
+    int rc;
+
+    rc = sqlite3_open("company.db", &db);
+    if (rc != SQLITE_OK) {
+        return crow::response(500, "Failed to open database");
+    }
+
+    const char* sql = "SELECT ID, NAME, AGE, ADDRESS, SALARY FROM COMPANY;";
+    rc = sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr);
+    if (rc != SQLITE_OK) {
+        sqlite3_close(db);
+        return crow::response(500, "Failed to prepare SQL query");
+    }
+
+    json result = json::array();
+
+    while (sqlite3_step(stmt) == SQLITE_ROW) {
+        json row;
+        row["id"] = sqlite3_column_int(stmt, 0);
+        row["name"] = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1));
+        row["age"] = sqlite3_column_int(stmt, 2);
+        row["address"] = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 3));
+        row["salary"] = sqlite3_column_double(stmt, 4);
+        result.push_back(row);
+    }
+
+    sqlite3_finalize(stmt);
+    sqlite3_close(db);
+
+    return crow::response(result.dump());
+}
+
+int main() {
+    crow::SimpleApp app;
+
+    CROW_ROUTE(app, "/employees")
+        ([] {
+        return getEmployeesFromDB();
+            });
+
+    std::cout << "Server running at http://localhost:18080\n";
+    app.port(18080).multithreaded().run();
+}
